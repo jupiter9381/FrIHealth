@@ -11,6 +11,7 @@ module.exports = app => {
   app.delete("/api/user/:id", userAut.deleteUser);
   app.get("/api/users", userAut.getPaginatedUsers);
   app.get("/api/user/:id", userAut.getUser);
+  app.get("/api/getUsersByCity/:city", userAut.getUsersByCity);
 
   //user side wow fuckoff
   app.get("/api/user/myCollection/:id", userCont.getMyCollections);

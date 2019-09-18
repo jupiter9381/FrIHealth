@@ -16,7 +16,7 @@ const UserSchema = new Schema({
     default: "Not Provided"
   },
   zip: {
-    type: Number,
+    type: String,
     default: 0000
   },
   address: {

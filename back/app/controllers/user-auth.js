@@ -5,6 +5,9 @@ const util = require("util");
 const responseHandler = require("../../app/utils/response-handler");
 const jwt = require("jsonwebtoken");
 
+const Collection = require("../models/Collection");
+const Menu = require("../models/Menu");
+var mongo = require('mongodb');
 // Users registration.
 exports.registerNewUser = (req, res, next) => {
   console.log("REQ BODY REGISTER", req.body);
@@ -145,6 +148,78 @@ exports.deleteUser = (req, res, next) => {
     .catch(e => {
       console.log("Error while deleting the user !");
     });
+};
+
+exports.getUsersByCity = async (req, res, next) => {
+  const city = req.params.city || false;
+  let menus = [];
+  const users = await User.find({city});
+
+  await Promise.all(users.map(async user => {
+    const collection = await Collection.find({user: new mongo.ObjectID(user._id)});
+    if(collection.length > 0) {
+      menus.push(...collection[0].menus);
+    }
+  }))
+
+  let totalMenus = [];
+  await Promise.all(menus.map(async menu => {
+    const collection = await Menu.find({_id: new mongo.ObjectID(menu)});
+    if(collection.length > 0) {
+      totalMenus.push(...collection);
+    }
+  }))
+
+  responseHandler(res, 201, {
+    code: 1,
+    menus: totalMenus
+  });
+
+  // users.forEach(result => {
+      
+  //   Collection.find({user: new mongo.ObjectID(result._id)})
+  //     .then(items => {
+  //       if(items.length > 0) {
+  //         menus.push(items.menu);
+  //       }
+  //     })
+  //     .catch(e => {
+  //     })
+  // })
+
+  // User.find({"city": city}).then(d => {
+  //   d.forEach(result => {
+      
+  //     Collection.find({user: new mongo.ObjectID(result._id)})
+  //       .then(items => {
+  //         if(items.length > 0) {
+  //           menus.push(items.menu);
+  //         }
+  //       })
+  //       .catch(e => {
+  //       })
+  //   })
+  //   console.log(menus);
+  // }).catch(e => {
+
+  // });
+  // if (!id)
+  //   return responseHandler(res, 200, {
+  //     code: 0,
+  //     message: "invalid user id given."
+  //   });
+  // console.log("IDDD", id);
+
+  // User.findByIdAndDelete(id)
+  //   .then(d => {
+  //     responseHandler(res, 201, {
+  //       code: 1,
+  //       message: "User has been deleted !"
+  //     });
+  //   })
+  //   .catch(e => {
+  //     console.log("Error while deleting the user !");
+  //   });
 };
 
 const createBcrypt = password => {

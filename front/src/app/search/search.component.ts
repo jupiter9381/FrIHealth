@@ -28,6 +28,7 @@ export class SearchComponent implements OnInit {
   activeMenus = [];
   searchTimeout: any;
 
+  filter: string;
   constructor(private http: HttpClient, public customMenuService: CustomMenu) {
     //
   }
@@ -83,21 +84,15 @@ export class SearchComponent implements OnInit {
     this.http
       .get<any>(environment.api + "api/user/myCollection/" + userId)
       .subscribe(resp => {
-        console.log("SSSS", this.activeMenus);
         let find;
         resp.data.forEach(e => {
           find = this.activeMenus.findIndex(
             act => act.name === e.collectionName
           );
-          console.log("index", find);
           if (find < 0) {
-            console.log("Pushing in ");
-            console.log(this.activeMenus.push({ name: e.collectionName }));
           }
         });
-        console.log("Mesnui", resp.data);
       });
-    console.log(this.customMenuService.getActiveMenus());
   }
 
   searchMenus(query?: string) {
@@ -123,7 +118,6 @@ export class SearchComponent implements OnInit {
   }
 
   onSelect(menu) {
-    console.log("MNEU", menu);
     this.selectedMenu = { ...menu };
   }
 
@@ -137,7 +131,24 @@ export class SearchComponent implements OnInit {
   }
 
   onRemoveCustom(name) {
-    console.log("@@", this.customMenuService.deleteMenu(name));
     this.activeMenus = this.customMenuService.deleteMenu(name);
+  }
+
+  changeFilters(){
+    const userid = localStorage.getItem("userId");
+    let city = "";
+    if(this.filter === "Location") {
+      this.http
+      .get<any>(environment.api + "api/user/" + userid)
+      .subscribe(resp => {
+        city = resp.user.city;
+        this.http
+        .get<any>(environment.api + "api/getUsersByCity/" + city)
+        .subscribe(result => {
+          this.menus = result.menus;
+        });
+      });
+    }
+    
   }
 }

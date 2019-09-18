@@ -9,6 +9,13 @@
 <div class="dady">
 
   <div class="bg-white left">
+      <div class="mt-5">
+        <select class="text-gray-700 border px-4 py-3 border-gray-200"  [(ngModel)]="filter" (change)="changeFilters()">
+          <option></option>
+          <option>Location</option>
+          <option>Popularity</option>
+        </select>
+      </div>
     <div class="mt-8">
       <input id="name" name="name" (keyup)="onSearchMenus($event.target)" type="text" placeholder="Search for menus..."
         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
