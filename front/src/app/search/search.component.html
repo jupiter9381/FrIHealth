@@ -20,6 +20,10 @@
       <input id="name" name="name" (keyup)="onSearchMenus($event.target)" type="text" placeholder="Search for menus..."
         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
     </div>
+    <div class="mt-5">
+        <input name="type" [(ngModel)]="type" type="radio" value="ingredient" (change)="changeType()"> Ingredient
+        <input name="type" [(ngModel)]="type" type="radio" value="menu" (change)="changeType()"> Menu
+    </div>
     <div *ngIf="menus && menus.length" class="mt-4">
       <div *ngFor="let menu of menus"
         class="bg-white mx-auto px-4 py-2 mb-2 border border-solid border-gray-300 rounded-lg overflow-hidden flex justify-between">

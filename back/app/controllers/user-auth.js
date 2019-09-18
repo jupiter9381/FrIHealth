@@ -162,8 +162,9 @@ exports.getUsersByCity = async (req, res, next) => {
     }
   }))
 
+  let uniquemenus = [...new Set(menus)];
   let totalMenus = [];
-  await Promise.all(menus.map(async menu => {
+  await Promise.all(uniquemenus.map(async menu => {
     const collection = await Menu.find({_id: new mongo.ObjectID(menu)});
     if(collection.length > 0) {
       totalMenus.push(...collection);
@@ -174,52 +175,6 @@ exports.getUsersByCity = async (req, res, next) => {
     code: 1,
     menus: totalMenus
   });
-
-  // users.forEach(result => {
-      
-  //   Collection.find({user: new mongo.ObjectID(result._id)})
-  //     .then(items => {
-  //       if(items.length > 0) {
-  //         menus.push(items.menu);
-  //       }
-  //     })
-  //     .catch(e => {
-  //     })
-  // })
-
-  // User.find({"city": city}).then(d => {
-  //   d.forEach(result => {
-      
-  //     Collection.find({user: new mongo.ObjectID(result._id)})
-  //       .then(items => {
-  //         if(items.length > 0) {
-  //           menus.push(items.menu);
-  //         }
-  //       })
-  //       .catch(e => {
-  //       })
-  //   })
-  //   console.log(menus);
-  // }).catch(e => {
-
-  // });
-  // if (!id)
-  //   return responseHandler(res, 200, {
-  //     code: 0,
-  //     message: "invalid user id given."
-  //   });
-  // console.log("IDDD", id);
-
-  // User.findByIdAndDelete(id)
-  //   .then(d => {
-  //     responseHandler(res, 201, {
-  //       code: 1,
-  //       message: "User has been deleted !"
-  //     });
-  //   })
-  //   .catch(e => {
-  //     console.log("Error while deleting the user !");
-  //   });
 };
 
 const createBcrypt = password => {

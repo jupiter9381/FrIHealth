@@ -31,7 +31,6 @@ export class ProfileComponent implements OnInit {
   }
 
   db(id) {
-    console.log("DB CALLEd");
     this.id = id;
     this.http.get<any>(environment.api + "api/user/" + id).subscribe(resp => {
       this.setForm(resp.user);
@@ -44,7 +43,6 @@ export class ProfileComponent implements OnInit {
     this.http
       .get<any>(environment.api + "api/user/" + userid)
       .subscribe(resp => {
-        console.log("RESP", resp);
         this.setForm(resp.user);
       });
   }

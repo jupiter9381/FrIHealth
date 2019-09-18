@@ -23,12 +23,13 @@ export class SearchComponent implements OnInit {
   selectedMenu = {
     name: ""
   };
-  menus: any[];
+  menus = [];
   collections = [];
   activeMenus = [];
   searchTimeout: any;
 
   filter: string;
+  type: string = "ingredient";
   constructor(private http: HttpClient, public customMenuService: CustomMenu) {
     //
   }
@@ -96,6 +97,7 @@ export class SearchComponent implements OnInit {
   }
 
   searchMenus(query?: string) {
+    this.menus = [];
     this.http
       .get(
         `${environment.api}api/admin/menu/get` +
@@ -104,8 +106,15 @@ export class SearchComponent implements OnInit {
       )
       .toPromise()
       .then((response: any) => {
+        console.log(this.type);
         if (response.code === 1) {
-          this.menus = response.data;
+          response.data.forEach(item => {
+            if(this.type === "ingredient" && item.type === "ingredient"){
+              this.menus.push(item);
+            } else if(this.type === "menu" && item.type === "menu") {
+              this.menus.push(item);
+            }
+          })
         } else {
           this.notify.title = response.message;
           this.notify.show();
@@ -134,7 +143,11 @@ export class SearchComponent implements OnInit {
     this.activeMenus = this.customMenuService.deleteMenu(name);
   }
 
+  changeType () {
+    this.searchMenus()
+  }
   changeFilters(){
+    this.menus = [];
     const userid = localStorage.getItem("userId");
     let city = "";
     if(this.filter === "Location") {
@@ -144,8 +157,12 @@ export class SearchComponent implements OnInit {
         city = resp.user.city;
         this.http
         .get<any>(environment.api + "api/getUsersByCity/" + city)
-        .subscribe(result => {
-          this.menus = result.menus;
+        .subscribe(item => {
+          if(this.type === "ingredient" && item.type === "ingredient"){
+            this.menus.push(item);
+          } else if(this.type === "menu" && item.type === "menu") {
+            this.menus.push(item);
+          }
         });
       });
     }
