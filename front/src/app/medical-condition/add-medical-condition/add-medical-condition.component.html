@@ -1,0 +1,64 @@
+<!-- Medical condition form -->
+<div class="bg-white sp w-full">
+  <form novalidate class="bg-white mt-8">
+    <!-- Name -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+        Name
+      </label>
+      <input id="name" name="name" [(ngModel)]="name" type="text" placeholder="Medical condition name"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+    <!-- Description -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+        Description <span class="text-xs text-gray-500">(optional)</span>
+      </label>
+      <textarea id="description" name="description" [(ngModel)]="description"
+        placeholder="Medical condition description"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"></textarea>
+    </div>
+    <!-- Menus -->
+    <div class="mb-6">
+      <span class="block text-gray-700 text-sm font-bold mb-2">
+        Menus
+      </span>
+      <div class="mb-4">
+        <div *ngFor="let menu of assignedMenus"
+          class="inline-block px-2 py-1 mr-1 mb-1 bg-green-400 text-white rounded whitespace-normal">
+          {{ menu.name }} <fa-icon [icon]="faTimes" (click)="removeMenu(menu)"></fa-icon>
+        </div>
+      </div>
+      <input name="query" type="text" (keyup)="onSearchMenus($event.target)" placeholder="Search for menus..."
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+      <div>
+        <div *ngIf="menus && menus.length" class="mt-4">
+          <div *ngFor="let menu of menus" (click)="addMenu(menu)"
+            class="bg-white mx-auto px-4 py-2 mb-2 border border-solid border-gray-300 rounded-lg overflow-hidden flex justify-between">
+            <div class="w-1/2">
+              {{ menu.name || '-' }}
+            </div>
+            <div class="flex-grow px-2">
+              {{ menu.quantity || '-' }}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="menus && !menus.length" class="mt-4 text-lg text-center text-gray-400 font-bold">
+          There are no menus matching for query
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="flex items-center justify-between mt-8">
+    <button class="bg-white hover:bg-gray-200 border border-solid border-gray-300 font-bold py-2 px-4 rounded"
+      [routerLink]="['/medical-conditions']">
+      <fa-icon [icon]="faArrowLeft"></fa-icon> Back
+    </button>
+    <button class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+      (click)="onClickSaveMedicalCondition()">
+      <fa-icon [icon]="faCheck"></fa-icon> Save
+    </button>
+  </div>
+</div>
+
+<swal #notify title="Ops" type="info"></swal>

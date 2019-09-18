@@ -1,0 +1,147 @@
+<!-- Menu form -->
+<div class="bg-white sp w-full">
+  <form novalidate class="bg-white mt-8">
+    <!-- Name -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+        Name
+      </label>
+      <input id="name" name="name" [(ngModel)]="name" type="text" placeholder="Menu name"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+    <!-- Quantity -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="quantity">
+        Quantity
+      </label>
+      <input id="quantity" name="quantity" [(ngModel)]="quantity" type="text" placeholder="Suggested quantity"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+    <!-- working here -->
+    <span class="mb-6 ml-2 inline-block">
+      <label class=" block text-gray-700 text-sm font-bold mb-2" for="calories">
+        Calories
+      </label>
+      <input id="calories" name="calories" [(ngModel)]="calories" type="number" placeholder="Suggested calories"
+        class="appearance-none bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </span>
+
+    <span class="mb-6 ml-2 inline-block">
+      <label class="block  text-gray-700 text-sm font-bold mb-2" for="fat">
+        Fat
+      </label>
+      <input id="fat" name="fat" [(ngModel)]="fat" type="number" placeholder="Suggested fat"
+        class="appearance-none  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </span>
+
+    <div class="mb-6  ml-2 inline-block">
+      <label class="block  text-gray-700 text-sm font-bold mb-2" for="sodium">
+        Sodium
+      </label>
+      <input id="sodium" name="sodium" [(ngModel)]="sodium" type="number" placeholder="Suggested sodium"
+        class="appearance-none  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+
+    <div class="mb-6 ml-2 inline-block">
+      <label class="block  text-gray-700 text-sm font-bold mb-2" for="carbohydrates">
+        Carbohydrates
+      </label>
+      <input id="carbohydrates" name="carbohydrates" [(ngModel)]="carbohydrates" type="number"
+        placeholder="Suggested carbohydrates"
+        class="appearance-none  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+
+    <div class="mb-6  ml-2 inline-block">
+      <label class="block  text-gray-700 text-sm font-bold mb-2" for="protein">
+        Protein
+      </label>
+      <input id="protein" name="protein" [(ngModel)]="protein" type="number" placeholder="Suggested protein"
+        class="appearance-none  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+
+
+    <div class="mb-6 ml-2  inline-block">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="vitaminA">
+        Vitamin A
+      </label>
+      <input id="vitaminA" name="vitaminA" [(ngModel)]="vitaminA" type="number" placeholder="Suggested vitaminA"
+        class="appearance-none  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+
+    <div class="mb-6  ml-2 inline-block">
+      <label class="block  text-gray-700 text-sm font-bold mb-2" for="vitaminC">
+        Vitamin C
+      </label>
+      <input id="vitaminC" name="vitaminc" [(ngModel)]="vitaminC" type="number" placeholder="Suggested vitaminC"
+        class="appearance-none  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+
+    <div class="mb-6 ml-2  inline-block">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="calcium">
+        Calcium
+      </label>
+      <input id="calcium" name="calcium" [(ngModel)]="calcium" type="number" placeholder="Suggested calcium"
+        class="appearance-none  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+
+
+    <div class="mb-6 ml-2  inline-block">
+      <label class="block  text-gray-700 text-sm font-bold mb-2" for="iron">
+        Iron
+      </label>
+      <input id="iron" name="iron" [(ngModel)]="iron" type="number" placeholder="Suggested iron"
+        class="appearance-none  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- working -->
+    <!-- Description -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+        Description <span class="text-xs text-gray-500">(optional)</span>
+      </label>
+      <textarea id="description" name="description" [(ngModel)]="description" placeholder="Menu description"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"></textarea>
+    </div>
+    <!-- Medical conditions -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="quantity">
+        Medical conditions
+      </label>
+      <div *ngFor="let medicalCondition of medicalConditions; let i = index"
+        class="flex justify-between border border-gray-200 rounded w-full py-2 px-3 text-gray-700 mb-3 cursor-pointer select-none hover:border-green-400"
+        (click)="onAssignMedicalCondition(i, !medicalCondition.isAssigned)">
+        <span>{{ medicalCondition.name }}</span>
+        <fa-icon [icon]="medicalCondition.isAssigned ? faCheckSquare : faSquare"
+          [class.text-green-500]="medicalCondition.isAssigned" [class.text-gray-500]="!medicalCondition.isAssigned">
+        </fa-icon>
+      </div>
+    </div>
+  </form>
+  <div class="flex items-center justify-between mt-8">
+    <button class="bg-white hover:bg-gray-200 border border-solid border-gray-300 font-bold py-2 px-4 rounded"
+      [routerLink]="['/menus']">
+      <fa-icon [icon]="faArrowLeft"></fa-icon> Back
+    </button>
+    <button class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" (click)="onClickSaveMenu()">
+      <fa-icon [icon]="faCheck"></fa-icon> Save
+    </button>
+  </div>
+</div>
+
+<swal #notify title="Ops" type="info"></swal>

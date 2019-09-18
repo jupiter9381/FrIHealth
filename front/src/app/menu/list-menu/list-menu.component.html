@@ -1,0 +1,36 @@
+<!-- Menu list -->
+<div class="bg-white sp w-full">
+  <div class="flex items-center justify-end mt-8">
+    <button class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+      [routerLink]="['/menus/new']">
+      <fa-icon [icon]="faPlus"></fa-icon> Add new
+    </button>
+  </div>
+  <div *ngIf="menus && menus.length === 0">
+    Can't find a single Menu. Please create one.
+  </div>
+  <div *ngIf="menus" class="mt-4">
+    <div *ngFor="let menu of menus"
+      class="bg-white mx-auto px-4 py-2 mb-2 border border-solid border-gray-300 rounded-lg overflow-hidden flex justify-between">
+      <div class="w-1/2" [routerLink]="['/menu', menu._id]">
+        {{ menu.name || '-' }}
+      </div>
+      <div class="flex-grow px-2" [routerLink]="['/menu', menu._id]">
+        {{ menu.quantity || '-' }}
+      </div>
+      <button class="bg-white hover:bg-gray-200 text-xs font-bold px-2" [routerLink]="['/menus/update', menu._id]">
+        <fa-icon [icon]="faPencilAlt"></fa-icon>
+      </button>
+      <button class="bg-white hover:bg-gray-200 text-xs font-bold px-2"
+        [swal]="{ title: 'Are you sure?\nThis action cannot be undo.', type: 'error', showCancelButton: true, confirmButtonText: 'Delete', confirmButtonColor: '#f56565' }"
+        (confirm)="onClickRemoveMenu(menu._id)">
+        <fa-icon [icon]="faTimes"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="!menus" class="mt-16 text-6xl text-center text-green-200">
+    <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+  </div>
+</div>
+
+<swal #notify title="Ops" type="info"></swal>

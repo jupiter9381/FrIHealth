@@ -1,0 +1,208 @@
+<div *ngIf="menu" class="bg-white w-full border-b border-solid border-gray-200">
+  <div class="flex justify-between text-3xl">
+    {{ menu?.name }}
+  </div>
+</div>
+<div *ngIf="menu" class="bg-white w-full">
+
+  <div class="dad">
+    <div class="left">
+      <div class="bg-white mt-8">
+        <!-- Quantity -->
+        <div class="mb-6">
+          <div class="block">
+            <span class="font-bold text-gray-700 text-sm">Quantity:</span>
+            {{ menu?.quantity }}
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-6">
+          <div class="block text-gray-700 text-sm font-bold mb-1">
+            Description:
+          </div>
+          <div class="text-justify">{{ menu?.description }}</div>
+        </div>
+
+        <!-- Medical conditions -->
+        <div *ngIf="menu && menu.conditions && menu.conditions.length" class="mb-6">
+          <div class="block text-gray-700 text-sm font-bold mb-2">
+            Medical conditions:
+          </div>
+          <div>
+            <div *ngFor="let medicalCondition of menu.conditions; let i = index"
+              class="flex justify-between border border-gray-200 rounded w-full py-2 px-3 text-gray-700 mb-3 select-none">
+              {{ medicalCondition.name }}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="menu && menu.conditions && !menu.conditions.length" class="mb-6">
+          <div class="text-gray-700 text-sm font-bold">
+            There are no medical conditions.
+          </div>
+        </div>
+      </div>
+      <div *ngIf="menu" class="bg-white w-full">
+        <div class="flex items-center justify-between mt-8">
+          <button class="bg-white hover:bg-gray-200 border border-solid border-gray-300 font-bold py-2 px-4 rounded"
+            (click)="onClickBack()">
+            <fa-icon [icon]="faArrowLeft"></fa-icon> Back
+          </button>
+          <button *ngIf="isAbleToAdd" (click)="onClickAddMenu()"
+            class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+            <fa-icon [icon]="faPlus"></fa-icon> Add
+          </button>
+          <button *ngIf="isAbleToRemove" [swal]="removeSwal"
+            class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+            <fa-icon [icon]="faTimes"></fa-icon> Remove
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="!menu" class="mt-16 text-6xl text-center text-green-200">
+        <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+      </div>
+
+      <swal #removeSwal [title]="'Are you sure?\nThis action cannot be undo.'" confirmButtonText="Remove" type="error"
+        [showCancelButton]="true" [confirmButtonColor]="'#f56565'" (confirm)="onClickRemoveMenu()">
+      </swal>
+      <swal #notify title="Ops" type="info"></swal>
+    </div>
+
+    <div class="rigth">
+
+      <table style='border:solid 2px black' class='center'>
+        <tr>
+          <td>
+            <table class='center zero'>
+              <tr>
+                <td class='center' style='font-size:xx-large;font-weight:bold' colspan='2'>
+                  Nutrition Facts
+                </td>
+              </tr>
+              <!-- <tr>
+                <td class='left'>Serving Size</td>
+                <td class='right'>100 g</td>
+              </tr> -->
+              <tr>
+                <td colspan='2' style='background-color:black;height:8px'></td>
+              </tr>
+
+              <!-- <tr>
+                <td class='left' colspan='2' style='font-size:small'><b>Amount Per Serving</b></td>
+              </tr> -->
+              <tr>
+                <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+              </tr>
+
+              <tr>
+                <td class='left' colspan='2'><b>Calories</b>&nbsp;{{menu.nutritions.calories}}</td>
+              </tr>
+              <tr>
+                <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+              </tr>
+              <!-- <tr>
+                <td colspan='2' style='background-color:black;padding:0px;height:4px'></td>
+              </tr> -->
+
+              <!-- <tr>
+                <td class='right' colspan='2' style='font-size:small'><b>% Daily Value</b></td>
+              </tr> -->
+              <tr>
+                <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+              </tr>
+              <tr>
+                <td class='left'><b>Total&nbsp;Fat</b>&nbsp;</td>
+                <td class='right'><b>{{menu.nutritions.fat}}&nbsp;g</b></td>
+              </tr>
+              <tr>
+                <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+              </tr>
+              <!-- <tr>
+                <td class='left'>&nbsp;&nbsp;&nbsp;Saturated&nbsp;Fat&nbsp;0.5g</td>
+                <td class='right'><b>2&nbsp;%</b></td>
+              </tr> -->
+              <tr>
+                <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+              </tr>
+              <tr>
+                <td class='left'><b>Sodium</b>&nbsp;</td>
+                <td class='right'><b>{{menu.nutritions.sodium}}&nbsp;g</b></td>
+              </tr>
+              <tr>
+                <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+              </tr>
+              <tr>
+                <td class='left'><b>Total&nbsp;Carbohydrate</b>&nbsp;</td>
+                <td class='right'><b>{{menu.nutritions.carbohydrates}}&nbsp;g</b></td>
+              </tr>
+              <tr>
+                <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+              </tr>
+              <!-- <tr>
+                <td class='left'>&nbsp;&nbsp;&nbsp;Dietary&nbsp;Fiber&nbsp;3.4g</td>
+                <td class='right'><b>14&nbsp;%</b></td>
+              </tr> -->
+              <tr>
+                <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+              </tr>
+              <tr>
+                <td class='left'><b>Protein</b>&nbsp;</td>
+                <td class='right'><b>{{menu.nutritions.protein}}&nbsp;g</b></td>
+              </tr>
+              <tr>
+                <td colspan='2' style='background-color:black;padding:0px;height:10px'></td>
+              </tr>
+
+              <tr>
+                <td class='left wide' colspan='2'>
+                  <table class='wide'>
+                    <tr>
+                      <td class='left' style='width:30%'>Vitamin&nbsp;A</td>
+                      <td class='right' style='width:15%'>{{menu.nutritions.vitaminA}}&nbsp;g</td>
+                      <td style='width:10%'><b>&bull;</b>
+                      <td>
+                      <td class='left' style='width:30%'>Vitamin&nbsp;C</td>
+                      <td class='right' style='width:15%'>{{menu.nutritions.vitaminC}}&nbsp;g</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+              </tr>
+
+              <tr>
+                <td class='left wide' colspan='2'>
+                  <table class='wide'>
+                    <tr>
+                      <td class='left' style='width:30%'>Calcium</td>
+                      <td class='right' style='width: 15%'>{{menu.nutritions.calcium}}&nbsp;g</td>
+                      <td style='width:10%'><b>&bull;</b></td>
+                      <td class='left' style='width: 30%'>Iron</td>
+                      <td class='right' style='width: 15%'>{{menu.nutritions.iron}}&nbsp;g</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <!-- <tr>
+                <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+              </tr> -->
+
+              <!-- <tr>
+                 <td class='left' colspan='2' style='font-size:small'>
+                  Daily values are based on 2000 calorie diet.</td>
+              </tr> -->
+
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,24 @@
+<!-- Top Menu Bar -->
+<div class="bg-white w-full border-b border-solid border-gray-200">
+  <div class="flex justify-between text-5xl">
+    <div>{{ page || 'Health' }}</div>
+    <span class="text-green-400 text-xl pt-5">
+      <i routerLink="/profile/1" class=" profile-logo fas fa-user-alt"></i>
+      <span [swal]="logoutSwal">
+        <fa-icon [icon]="faPowerOff"></fa-icon>
+      </span>
+    </span>
+
+  </div>
+  <div class="flex justify-between text-xl">
+    <div *ngFor="let nav of navigations" class="flex-grow">
+      <div class="w-fit cursor-pointer pb-1" [ngClass]="{'border-b-4 border-solid border-green-400': nav.active}"
+        [routerLink]="nav.url">{{ nav.name }}</div>
+    </div>
+  </div>
+</div>
+
+
+<swal #logoutSwal title="Do you want to logout?" confirmButtonText="Logout" [showCancelButton]="true"
+  [focusCancel]="true" (confirm)="onClickLogout()">
+</swal>

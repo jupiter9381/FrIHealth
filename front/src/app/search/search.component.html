@@ -1,0 +1,82 @@
+<app-top-bar [page]="'User'" [navigations]="[
+               {name: 'My collection', url: '/collection', active: false},
+               {name: 'Search', url: '/search', active: true}
+             ]">
+</app-top-bar>
+
+<!-- Menu list -->
+
+<div class="dady">
+
+  <div class="bg-white left">
+    <div class="mt-8">
+      <input id="name" name="name" (keyup)="onSearchMenus($event.target)" type="text" placeholder="Search for menus..."
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+    <div *ngIf="menus && menus.length" class="mt-4">
+      <div *ngFor="let menu of menus"
+        class="bg-white mx-auto px-4 py-2 mb-2 border border-solid border-gray-300 rounded-lg overflow-hidden flex justify-between">
+        <div class="w-1/2" [routerLink]="['/menu', menu._id]">
+          {{ menu.name || '-' }}
+        </div>
+        <div class="flex-grow px-2" [routerLink]="['/menu', menu._id]">
+          {{ menu.quantity || '-' }}
+        </div>
+        <button class="bg-white hover:bg-gray-200 text-xs font-bold px-2" (click)="onClickAddMenu(menu._id)">
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="menus && !menus.length" class="mt-32 px-10 text-2xl text-center text-gray-400 font-bold">
+      There are no menus matching for query
+    </div>
+    <div *ngIf="!menus" class="mt-16 text-6xl text-center text-green-200">
+      <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+    </div>
+
+
+
+
+
+    <swal #notify title="Ops" type="info"></swal>
+  </div>
+
+  <div class="create-menu">
+    <h2>Create Collections</h2>
+    <div class="fields">
+      <input style=" width:60%;margin-right: 3px;" #inp type="text" placeholder="Create Menu"
+        class=" appearance-none bg-gray-200 text-gray-700
+        border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+      <button style="display: inline-block;float: right;"
+        class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+        (click)="onAddMenu(inp.value)">Add +</button>
+    </div>
+
+
+    <div class="list">
+      Current Collections
+
+      <div *ngIf="activeMenus && activeMenus.length" class="mt-4">
+        <div style="cursor: pointer" (click)="onSelect(menu)" *ngFor="let menu of activeMenus"
+          [ngClass]="{'custom-select': selectedMenu.name === menu.name }"
+          class="custom-select bg-white mx-auto px-4 py-2 mb-2 border border-solid border-gray-300 rounded-lg overflow-hidden flex justify-between">
+          <div class="w-1/2" [ngStyle]="{'font-weigth': selectedMenu.name === menu.name ? '700': '300'}">
+            {{ menu.name || '-' }}
+          </div>
+          <div class="flex-grow px-2">
+            {{ menu.quantity || '' }}
+          </div>
+          <button class="bg-white hover:bg-gray-200 text-xs font-bold px-2" (click)="onRemoveCustom(menu)">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+</div>

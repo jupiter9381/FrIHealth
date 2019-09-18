@@ -1,0 +1,109 @@
+/* Navigation */
+td.field_type {
+  text-align: left;
+}
+
+td.field_value {
+  text-align: left;
+}
+
+/* classes for individual css properties */
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+table.center {
+  margin: 0 auto;
+}
+
+.right {
+  text-align: right;
+}
+
+.wide {
+  width: 100%;
+}
+
+.right .addthis_default_style {
+  float: right;
+}
+
+table.cellpadding3 td {
+  padding: 3px;
+}
+
+/* Css for comparison pages */
+table.comp {
+  border-collapse: collapse;
+  text-align: left;
+}
+
+
+td {
+  padding: 3px;
+}
+
+
+
+
+
+/* najam */
+
+.rigth {
+  padding: 6px;
+}
+
+@media(max-width:600px) {
+  .dad {
+    flex-direction: column;
+  }
+
+
+}
+
+.left {
+  flex-basis: 60%
+}
+
+.dad {
+  display: flex;
+  justify-content: space-around
+}
+
+
+.dady {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.left {
+  flex: 1;
+}
+
+.custom-select {
+  padding: 0.4rem;
+  border-radius: 10px;
+  text-align: center;
+  background: #eee;
+
+}
+
+.create-menu {
+  padding-left: 0.5rem;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 0.3rem;
+  min-height: 35vh;
+}

@@ -1,0 +1,8 @@
+<app-top-bar [page]="'Admin'"
+             [navigations]="[
+               {name: 'Medical conditions', url: '/medical-conditions', active: true},
+               {name: 'Menus', url: '/menus', active: false}
+             ]">
+</app-top-bar>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,206 @@
+<app-top-bar [page]="'User'" [navigations]="[
+               {name: 'My collection', url: '/collection', active: true},
+               {name: 'Search', url: '/search', active: false}
+             ]">
+</app-top-bar>
+
+<!-- Menu list -->
+<div class="dad">
+  <div class="left">
+    <div class=" first bg-white">
+      <div *ngIf="menus && menus.length" class="mt-8">
+        <div *ngFor="let menu of menus"
+          class="bg-white mx-auto px-4 py-2 mb-2 border border-solid border-gray-300 rounded-lg overflow-hidden flex justify-between">
+          <div class="w-1/2" [routerLink]="['/menu', menu._id]">
+            {{ menu.name || '-' }}
+          </div>
+          <div class="flex-grow px-2" [routerLink]="['/menu', menu._id]">
+            {{ menu.quantity || '-' }}
+          </div>
+          <button class="bg-white hover:bg-gray-200 text-xs font-bold px-2"
+            [swal]="{ title: 'Are you sure?\nThis action cannot be undo.', type: 'error', showCancelButton: true, confirmButtonText: 'Delete', confirmButtonColor: '#f56565' }"
+            (confirm)="onClickRemoveMenu(selectedMenu,menu)">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="menus && !menus.length" class="mt-32 px-10 text-2xl text-center text-gray-400 font-bold">
+        There are no menus selected.<br />Click search tab to add more.
+      </div>
+      <div *ngIf="!menus" class="mt-16 text-6xl text-center text-green-200">
+        <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+      </div>
+    </div>
+
+
+    <div class="create-menu">
+
+      <div class="list">
+        Current Collections
+
+        <div *ngFor="let collection of collections" class="mt-4">
+
+          <div *ngIf="collection" style="cursor: pointer"
+            [ngClass]="{'custom-select': selectedMenu?.collectionName === collection?.collectionName }"
+            class="custom-select bg-white mx-auto px-4 py-2 mb-2 border border-solid border-gray-300 rounded-lg overflow-hidden flex justify-between">
+            <div class="w-1/2" (click)="onSelect(collection)"
+              [ngStyle]="{'font-weigth': selectedMenu.collectionName === collection.collectionName ? '700': '300'}">
+              {{ collection.collectionName || '-' }}
+            </div>
+            <div class="flex-grow px-2">
+              <!-- {{ menu.quantity || '' }} -->
+            </div>
+            <button class="bg-white hover:bg-gray-200 text-xs font-bold px-2" (click)="onRemoveCustom(collection)">
+              <fa-icon [icon]="faTimes"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <div class="rigth">
+
+    <table style='border:solid 2px black' class='center'>
+      <tr>
+        <td>
+          <table class='center zero'>
+            <tr>
+              <td class='center' style='font-size:xx-large;font-weight:bold' colspan='2'>
+                Nutrition Facts
+              </td>
+            </tr>
+            <!-- <tr>
+              <td class='left'>Serving Size</td>
+              <td class='right'>100 g</td>
+            </tr> -->
+            <tr>
+              <td colspan='2' style='background-color:black;height:8px'></td>
+            </tr>
+
+            <!-- <tr>
+              <td class='left' colspan='2' style='font-size:small'><b>Amount Per Serving</b></td>
+            </tr> -->
+            <tr>
+              <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+            </tr>
+
+            <tr>
+              <td class='left'><b>Calories</b>&nbsp;</td>
+              <td class='right'><b>{{menu.nutritions.calories}}&nbsp;g</b></td>
+            </tr>
+            <tr>
+              <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+            </tr>
+            <!-- <tr>
+              <td colspan='2' style='background-color:black;padding:0px;height:4px'></td>
+            </tr> -->
+
+            <!-- <tr>
+              <td class='right' colspan='2' style='font-size:small'><b>% Daily Value</b></td>
+            </tr> -->
+            <tr>
+              <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+            </tr>
+            <tr>
+              <td class='left'><b>Total&nbsp;Fat</b>&nbsp;</td>
+              <td class='right'><b>{{menu.nutritions.fat}}&nbsp;g</b></td>
+            </tr>
+            <tr>
+              <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+            </tr>
+            <!-- <tr>
+              <td class='left'>&nbsp;&nbsp;&nbsp;Saturated&nbsp;Fat&nbsp;0.5g</td>
+              <td class='right'><b>2&nbsp;%</b></td>
+            </tr> -->
+            <tr>
+              <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+            </tr>
+            <tr>
+              <td class='left'><b>Sodium</b>&nbsp;</td>
+              <td class='right'><b>{{menu.nutritions.sodium}}&nbsp;g</b></td>
+            </tr>
+            <tr>
+              <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+            </tr>
+            <tr>
+              <td class='left'><b>Total&nbsp;Carbohydrate</b>&nbsp;</td>
+              <td class='right'><b>{{menu.nutritions.carbohydrates}}&nbsp;g</b></td>
+            </tr>
+            <tr>
+              <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+            </tr>
+            <!-- <tr>
+              <td class='left'>&nbsp;&nbsp;&nbsp;Dietary&nbsp;Fiber&nbsp;3.4g</td>
+              <td class='right'><b>14&nbsp;%</b></td>
+            </tr> -->
+            <tr>
+              <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+            </tr>
+            <tr>
+              <td class='left'><b>Protein</b>&nbsp;</td>
+              <td class='right'><b>{{menu.nutritions.protein}}&nbsp;g</b></td>
+            </tr>
+            <tr>
+              <td colspan='2' style='background-color:black;padding:0px;height:10px'></td>
+            </tr>
+
+            <tr>
+              <td class='left wide' colspan='2'>
+                <table class='wide'>
+                  <tr>
+                    <td class='left' style='width:30%'>Vitamin&nbsp;A</td>
+                    <td class='right' style='width:15%'>{{menu.nutritions.vitaminA}}&nbsp;g</td>
+                    <td style='width:10%'><b>&bull;</b>
+                    <td>
+                    <td class='left' style='width:30%'>Vitamin&nbsp;C</td>
+                    <td class='right' style='width:15%'>{{menu.nutritions.vitaminC}}&nbsp;g</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+            </tr>
+
+            <tr>
+              <td class='left wide' colspan='2'>
+                <table class='wide'>
+                  <tr>
+                    <td class='left' style='width:30%'>Calcium</td>
+                    <td class='right' style='width: 15%'>{{menu.nutritions.calcium}}&nbsp;g</td>
+                    <td style='width:10%'><b>&bull;</b></td>
+                    <td class='left' style='width: 30%'>Iron</td>
+                    <td class='right' style='width: 15%'>{{menu.nutritions.iron}}&nbsp;g</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- <tr>
+              <td colspan='2' style='background-color:black;padding:0px;height:1px'></td>
+            </tr> -->
+
+            <!-- <tr>
+               <td class='left' colspan='2' style='font-size:small'>
+                Daily values are based on 2000 calorie diet.</td>
+            </tr> -->
+
+          </table>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>
+
+
+
+
+
+<swal #notify title="Ops" type="info"></swal>

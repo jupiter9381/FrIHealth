@@ -1,0 +1,64 @@
+<div class="w-full">
+  <div class="text-6xl text-center mt-4 mb-8">Register</div>
+  <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <!--  Username  -->
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+        Username
+      </label>
+      <input id="username"
+             name="username"
+             [(ngModel)]="username"
+             placeholder="Username"
+             type="text"
+             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             (keyup.enter)="onSubmitRegister()">
+    </div>
+
+    <!--  Password  -->
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+        Password
+      </label>
+      <input id="password"
+             name="password"
+             [(ngModel)]="password"
+             placeholder="***************"
+             type="password"
+             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+             (keyup.enter)="onSubmitRegister()">
+    </div>
+
+    <!--  Confirm Password  -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="confirm-password">
+        Confirm Password
+      </label>
+      <input id="confirm-password"
+             name="confirmPassword"
+             [(ngModel)]="confirmPassword"
+             placeholder="***************"
+             type="password"
+             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+             (keyup.enter)="onSubmitRegister()">
+    </div>
+
+    <!--  Register Button  -->
+    <div class="text-center mb-6">
+      <button type="button"
+              class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              (click)="onSubmitRegister()">
+        Register
+      </button>
+    </div>
+    <div class="text-center">
+      <span>Already have an account?</span>{{ ' ' }}
+      <a class="inline-block align-baseline font-bold text-sm text-green-500 hover:text-green-800"
+         [routerLink]="['/login']">
+        Login
+      </a>
+    </div>
+  </form>
+</div>
+
+<swal #notify title="Ops" type="info"></swal>

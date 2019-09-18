@@ -1,0 +1,80 @@
+<app-top-bar [page]="'Profile'" [navigations]="[
+               {name: 'Profile', url: '/profile', active: true}
+             ]">
+</app-top-bar>
+
+
+<button type="button" style="margin:0 auto; display:block;"
+  class=" bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" (click)="onBack()">
+  Back
+</button>
+
+
+<div class="bg-white sp w-full">
+  <form novalidate class="bg-white mt-8" [formGroup]="updateForm">
+    <!-- Name -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="firstName">
+        Fist Name
+      </label>
+      <input formControlName="fname" id="firstName" name="firstName" type="text" placeholder="First Name here "
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+        Last Name
+      </label>
+      <input formControlName="lname" id="name" name="name" type="text" placeholder="Last Name here"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+
+
+    <span class="mb-6 ml-2 inline-block">
+      <label class=" block text-gray-700 text-sm font-bold mb-2" for="calories">
+        Country
+      </label>
+      <input formControlName="country" id="country" name="country" type="text" placeholder="country"
+        class="appearance-none bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </span>
+
+    <span class="mb-6 ml-2 inline-block">
+      <label class="block  text-gray-700 text-sm font-bold mb-2" for="fat">
+        City
+      </label>
+      <input id="city" formControlName="city" name="city" type="text" placeholder="City"
+        class="appearance-none  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </span>
+
+    <span class="mb-6 ml-2 inline-block">
+      <label class="block  text-gray-700 text-sm font-bold mb-2" for="fat">
+        Zip/Postal
+      </label>
+      <input formControlName="zip" id="zipCode" name="zipCode" type="number" placeholder="zipCode"
+        class="appearance-none  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </span>
+
+
+    <!-- Description -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
+        Address <span class="text-xs text-gray-500">(optional)</span>
+      </label>
+      <textarea formControlName="address" id="address" name="address" placeholder="Pleae Provide your address"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"></textarea>
+    </div>
+
+
+
+
+  </form>
+  <button style="margin:0 auto; display:block;"
+    class=" bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" (click)="onEditProfile()">
+    Save
+  </button>
+
+</div>
+
+
+
+<swal #notify title="Ops" type="success"></swal>
