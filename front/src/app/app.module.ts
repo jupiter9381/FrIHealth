@@ -17,15 +17,17 @@ import { TopBarModule } from "./top-bar/top-bar.module";
 import { SwalComponent, SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 import { UserListComponent } from "./user-list/user-list.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { UserAddComponent } from './user-add/user-add.component';
 
 @NgModule({
-  declarations: [AppComponent, ProfileComponent, UserListComponent],
+  declarations: [AppComponent, ProfileComponent, UserListComponent, UserAddComponent],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot([
       { path: "profile/:id", component: ProfileComponent },
       { path: "users", component: UserListComponent },
+      { path: "users/new", component: UserAddComponent },
       { path: "", redirectTo: "/medical-conditions", pathMatch: "full" }
     ]),
     LoginModule,
