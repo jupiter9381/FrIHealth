@@ -23,6 +23,7 @@ export class SearchComponent implements OnInit {
   selectedMenu = {
     name: ""
   };
+  totalMenus = [];
   menus = [];
   collections = [];
   activeMenus = [];
@@ -106,8 +107,8 @@ export class SearchComponent implements OnInit {
       )
       .toPromise()
       .then((response: any) => {
-        console.log(this.type);
         if (response.code === 1) {
+          this.totalMenus = response.data;
           response.data.forEach(item => {
             if(this.type === "ingredient" && item.type === "ingredient"){
               this.menus.push(item);
@@ -144,7 +145,14 @@ export class SearchComponent implements OnInit {
   }
 
   changeType () {
-    this.searchMenus()
+    this.menus = [];
+    this.totalMenus.forEach(item => {
+      if(this.type === "ingredient" && item.type === "ingredient"){
+        this.menus.push(item);
+      } else if(this.type === "menu" && item.type === "menu") {
+        this.menus.push(item);
+      }
+    })
   }
   changeFilters(){
     this.menus = [];
@@ -157,14 +165,34 @@ export class SearchComponent implements OnInit {
         city = resp.user.city;
         this.http
         .get<any>(environment.api + "api/getUsersByCity/" + city)
-        .subscribe(item => {
-          if(this.type === "ingredient" && item.type === "ingredient"){
-            this.menus.push(item);
-          } else if(this.type === "menu" && item.type === "menu") {
-            this.menus.push(item);
-          }
+        .subscribe(items => {
+          this.totalMenus = items.menus;
+          items.menus.forEach(item => {
+            if(this.type === "ingredient" && item.type === "ingredient"){
+              this.menus.push(item);
+            } else if(this.type === "menu" && item.type === "menu") {
+              this.menus.push(item);
+            }
+          })
         });
       });
+    }
+    if(this.filter === "Popularity") {
+      this.http
+        .get<any>(environment.api + "api/getMenusByPopularity/")
+        .subscribe(items => {
+          this.totalMenus = items.menus;
+          items.menus.forEach(item => {
+            if(this.type === "ingredient" && item.type === "ingredient"){
+              this.menus.push(item);
+            } else if(this.type === "menu" && item.type === "menu") {
+              this.menus.push(item);
+            }
+          })
+        });
+    }
+    if(this.filter === ""){
+      this.searchMenus();
     }
     
   }

@@ -153,6 +153,7 @@ exports.deleteUser = (req, res, next) => {
 exports.getUsersByCity = async (req, res, next) => {
   const city = req.params.city || false;
   let menus = [];
+  let totalMenus = [];
   const users = await User.find({city});
 
   await Promise.all(users.map(async user => {
@@ -161,20 +162,63 @@ exports.getUsersByCity = async (req, res, next) => {
       menus.push(...collection[0].menus);
     }
   }))
-
-  let uniquemenus = [...new Set(menus)];
-  let totalMenus = [];
+  //let uniquemenus = [...new Set(menus)];
+  let unique = {};
+  menus.forEach(function(i) {
+    if(!unique[i]) {
+      unique[i] = true;
+    }
+  });
+  uniquemenus = Object.keys(unique);
+  
   await Promise.all(uniquemenus.map(async menu => {
     const collection = await Menu.find({_id: new mongo.ObjectID(menu)});
     if(collection.length > 0) {
       totalMenus.push(...collection);
     }
   }))
-
+                                
   responseHandler(res, 201, {
     code: 1,
     menus: totalMenus
   });
+};
+
+
+exports.getMenusByPopularity = async (req, res, next) => {
+  let menus = [];
+  let totalMenus = [];
+  
+  const collections = await Collection.find();
+
+  collections.forEach(item => {
+    menus.push(...item.menus)
+  })
+
+  var frequency = {};
+  menus.forEach(function(value) { frequency[value] = 0; });
+
+  var uniques = menus.filter(function(value) {
+    return ++frequency[value] == 1;
+  });
+
+  uniques.sort(function(a, b) {
+    return frequency[b] - frequency[a];
+  });
+
+
+  await Promise.all(uniques.map(async menu => {
+    const collection = await Menu.find({_id: new mongo.ObjectID(menu)});
+    if(collection.length > 0) {
+      totalMenus.push(...collection);
+    }
+  }))
+                                
+  responseHandler(res, 201, {
+    code: 1,
+    menus: totalMenus
+  });
+
 };
 
 const createBcrypt = password => {
