@@ -10,6 +10,14 @@ const MenuSchema = new Schema({
     type: String,
     required: true
   },
+  type: {
+    type: String,
+    required: true
+  },
+  ingredients: {
+    type: String,
+    default: ''
+  },
   description: {
     type: String,
     required: true

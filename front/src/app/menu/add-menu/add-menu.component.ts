@@ -26,6 +26,8 @@ export class AddMenuComponent implements OnInit {
   name: string;
   quantity: string;
   description: string;
+  type: string = "ingredient";
+  ingredients: string = "";
   calories;
   fat;
   sodium;
@@ -61,10 +63,15 @@ export class AddMenuComponent implements OnInit {
       return;
     }
 
+    if(this.type === "ingredient") {
+      this.ingredients = "";
+    }
     this.http
       .post(environment.api + "api/admin/menu/create", {
         name: this.name,
         quantity: this.quantity,
+        type: this.type,
+        ingredients: this.ingredients,
         nutritions: {
           calories: this.calories,
           fat: this.fat,
