@@ -1,6 +1,14 @@
 <!-- Menu form -->
 <div class="bg-white sp w-full">
   <form novalidate class="bg-white mt-8">
+    <!-- Type -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="type">
+        Type
+      </label>
+      <input name="type" [(ngModel)]="type" type="radio" value="ingredient"> Ingredient
+      <input name="type" [(ngModel)]="type" type="radio" value="menu"> Menu
+    </div>
     <!-- Name -->
     <div class="mb-6">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
@@ -16,6 +24,14 @@
       </label>
       <input id="quantity" name="quantity" [(ngModel)]="quantity" type="text" placeholder="Suggested quantity"
         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    </div>
+    <!-- Quantity -->
+    <div class="mb-6" *ngIf="type==='menu'">
+      <label class=" text-gray-700 text-sm font-bold mb-2" for="quantity">
+        Ingredients
+      </label>
+      <input id="ingredients" name="ingredients" [(ngModel)]="ingredients" type="text" placeholder="Suggested ingredients"
+        class="appearance-none  w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
     </div>
     <!-- working here -->
     <span class="mb-6 ml-2 inline-block">

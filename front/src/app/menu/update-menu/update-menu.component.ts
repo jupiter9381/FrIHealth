@@ -39,6 +39,9 @@ export class UpdateMenuComponent implements OnInit {
   iron;
   medicalConditions: any[];
 
+  type: string = "ingredient";
+  ingredients: string = "";
+
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -68,11 +71,17 @@ export class UpdateMenuComponent implements OnInit {
       return;
     }
 
+    if(this.type === "ingredient") {
+      this.ingredients = "";
+    }
+
     this.http
       .put(environment.api + "api/admin/put/menu/" + this.id, {
         name: this.name,
         quantity: this.quantity,
         description: this.description,
+        type: this.type,
+        ingredients: this.ingredients,
         nutritions: {
           calories: this.calories,
           fat: this.fat,
@@ -112,6 +121,8 @@ export class UpdateMenuComponent implements OnInit {
       .toPromise()
       .then((response: any) => {
         if (response.code === 1 && response.data) {
+          this.type = response.data.type;
+          this.ingredients = response.data.ingredients;
           this.name = response.data.name;
           this.quantity = response.data.quantity;
           this.description = response.data.description;
