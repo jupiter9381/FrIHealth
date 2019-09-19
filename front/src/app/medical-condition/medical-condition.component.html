@@ -5,4 +5,13 @@
              ]">
 </app-top-bar>
 
+<div style="display: block">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+    </canvas>
+  </div>
 <router-outlet></router-outlet>

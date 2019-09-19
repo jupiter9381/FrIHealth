@@ -162,7 +162,6 @@ exports.getUsersByCity = async (req, res, next) => {
       menus.push(...collection[0].menus);
     }
   }))
-  //let uniquemenus = [...new Set(menus)];
   let unique = {};
   menus.forEach(function(i) {
     if(!unique[i]) {
@@ -217,6 +216,61 @@ exports.getMenusByPopularity = async (req, res, next) => {
   responseHandler(res, 201, {
     code: 1,
     menus: totalMenus
+  });
+
+};
+
+exports.getStatistics = async (req, res, next) => {
+  
+  var locations = [];
+  
+  const users = await User.find({}); 
+  users.forEach(user => {
+    if(user.city != "Not Set" && user.city != "Not Provided") {
+      locations.push(user.city);
+    }
+  });
+  
+  let unique = {};
+  locations.forEach(function(i) {
+    if(!unique[i]) {
+      unique[i] = true;
+    }
+  });
+  locations = Object.keys(unique);
+
+  let statistics = [];
+  await Promise.all(locations.map(async city => {
+    const users_by_city = await User.find({city});
+    console.log(users_by_city)
+    let menus = [];
+    await Promise.all(users_by_city.map(async user => {
+      const collection = await Collection.find({user: new mongo.ObjectID(user._id)});
+      if(collection.length > 0) {
+        menus.push(...collection[0].menus);
+      }
+    }))
+    
+    var frequency = {};
+    menus.forEach(function(value) { frequency[value] = 0; });
+
+    var uniques = menus.filter(function(value) {
+      return ++frequency[value] == 1;
+    });
+
+    uniques.sort(function(a, b) {
+      return frequency[b] - frequency[a];
+    });
+
+    var topPopularity = uniques[0];
+    var topMenu = await Menu.find({_id: topPopularity});
+
+    let item = {location: city, popularity: frequency[topPopularity], name: topMenu[0].name};
+    statistics.push(item);
+  }))
+  responseHandler(res, 201, {
+    code: 1,
+    data: statistics
   });
 
 };

@@ -13,7 +13,9 @@ module.exports = app => {
   app.get("/api/user/:id", userAut.getUser);
   app.get("/api/getUsersByCity/:city", userAut.getUsersByCity);
   app.get("/api/getMenusByPopularity", userAut.getMenusByPopularity);
+  app.get("/api/getStatistics", userAut.getStatistics);
 
+  
   //user side wow fuckoff
   app.get("/api/user/myCollection/:id", userCont.getMyCollections);
   app.post("/api/user/:id/save/menu", userCont.createOrUpdateCollection);
