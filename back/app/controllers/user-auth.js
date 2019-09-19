@@ -265,7 +265,9 @@ exports.getStatistics = async (req, res, next) => {
     var topMenu = await Menu.find({_id: topPopularity});
 
     let item = {location: city, popularity: frequency[topPopularity], name: topMenu[0].name};
-    statistics.push(item);
+    if(item.length > 0) {
+      statistics.push(item);
+    }
   }))
   responseHandler(res, 201, {
     code: 1,
