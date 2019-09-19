@@ -7,7 +7,7 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
-import { ChartsModule } from 'ng2-charts';
+
 
 import { TopBarModule } from "../top-bar/top-bar.module";
 import { MedicalConditionComponent } from "./medical-condition.component";
@@ -32,7 +32,7 @@ import { CanActiveAdmin } from "../can-active-admin.guard";
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    ChartsModule,
+    
     RouterModule.forRoot([
       {
         path: "medical-conditions",

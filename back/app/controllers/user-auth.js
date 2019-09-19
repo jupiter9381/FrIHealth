@@ -260,14 +260,17 @@ exports.getStatistics = async (req, res, next) => {
     uniques.sort(function(a, b) {
       return frequency[b] - frequency[a];
     });
+    let item;
+    if(uniques.length > 0) {
+      var topPopularity = uniques[0];
+      var topMenu = await Menu.find({_id: topPopularity});
 
-    var topPopularity = uniques[0];
-    var topMenu = await Menu.find({_id: topPopularity});
-
-    let item = {location: city, popularity: frequency[topPopularity], name: topMenu[0].name};
-    if(item.length > 0) {
-      statistics.push(item);
+      item = {location: city, popularity: frequency[topPopularity], name: topMenu[0].name};
+      
+    } else {
+      item = {location: city, popularity: 0, name: ''};
     }
+    statistics.push(item);
   }))
   responseHandler(res, 201, {
     code: 1,

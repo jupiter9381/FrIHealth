@@ -1,17 +1,11 @@
 <app-top-bar [page]="'Admin'"
              [navigations]="[
                {name: 'Medical conditions', url: '/medical-conditions', active: true},
-               {name: 'Menus', url: '/menus', active: false}
+               {name: 'Menus', url: '/menus', active: false},
+               {name: 'Users', url: '/users', active: false},
+               {name: 'Grahpics', url: '/graphics', active: false}
              ]">
 </app-top-bar>
 
-<div style="display: block">
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [chartType]="barChartType">
-    </canvas>
-  </div>
+
 <router-outlet></router-outlet>

@@ -18,9 +18,12 @@ import { SwalComponent, SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 import { UserListComponent } from "./user-list/user-list.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { UserAddComponent } from './user-add/user-add.component';
+import { GraphicsComponent } from './graphics/graphics.component';
+
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
-  declarations: [AppComponent, ProfileComponent, UserListComponent, UserAddComponent],
+  declarations: [AppComponent, ProfileComponent, UserListComponent, UserAddComponent, GraphicsComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -28,6 +31,7 @@ import { UserAddComponent } from './user-add/user-add.component';
       { path: "profile/:id", component: ProfileComponent },
       { path: "users", component: UserListComponent },
       { path: "users/new", component: UserAddComponent },
+      { path: "graphics", component: GraphicsComponent },
       { path: "", redirectTo: "/medical-conditions", pathMatch: "full" }
     ]),
     LoginModule,
@@ -39,7 +43,7 @@ import { UserAddComponent } from './user-add/user-add.component';
     SweetAlert2Module,
     MenuModule,
     SearchModule,
-
+    ChartsModule,
     CollectionModule,
     SingleMenuModule
   ],
