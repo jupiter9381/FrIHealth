@@ -242,7 +242,6 @@ exports.getStatistics = async (req, res, next) => {
   let statistics = [];
   await Promise.all(locations.map(async city => {
     const users_by_city = await User.find({city});
-    console.log(users_by_city)
     let menus = [];
     await Promise.all(users_by_city.map(async user => {
       const collection = await Collection.find({user: new mongo.ObjectID(user._id)});
@@ -250,7 +249,7 @@ exports.getStatistics = async (req, res, next) => {
         menus.push(...collection[0].menus);
       }
     }))
-    
+
     var frequency = {};
     menus.forEach(function(value) { frequency[value] = 0; });
 
