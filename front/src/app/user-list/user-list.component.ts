@@ -25,7 +25,6 @@ export class UserListComponent implements OnInit {
 
   init() {
     this.http.get<any>(environment.api + "api/users").subscribe(resp => {
-      console.log("Resp", resp);
       this.users = resp.users;
     });
   }
@@ -34,7 +33,6 @@ export class UserListComponent implements OnInit {
     this.http
       .delete<any>(environment.api + "api/user/" + id)
       .subscribe(resp => {
-        console.log("Response for delte !", resp);
         if (resp.code === 1) {
           this.users = this.users.filter(e => id != e._id);
         }
